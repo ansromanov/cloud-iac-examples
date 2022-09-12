@@ -1,0 +1,12 @@
+---
+s3:
+  source: git@github.com:boltops-tools/terraform-aws-s3
+  type: git
+  url: git@github.com:boltops-tools/terraform-aws-s3
+  sha: 0d50563b57b8ef65051083a95d976eda86e09531
+sg:
+  source: terraform-aws-modules/security-group/aws
+  version: 3.10.0
+  type: registry
+  url: https://github.com/terraform-aws-modules/terraform-aws-security-group
+  sha: 8799422bab175e523ac6ddbf7d44fe6b0a1dc627

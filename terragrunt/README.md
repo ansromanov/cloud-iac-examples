@@ -1,0 +1,1 @@
+# Terragrunt infrastructure example
