@@ -1,0 +1,73 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: "devops-iac-report s3 backend config"
+
+Parameters:
+  Project:
+    Type: String
+    Default: devops-iac-report
+
+Resources:
+  TFStateS3Bucket:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName:
+        Fn::Sub:
+          - "tfstate-${PROJECT}"
+          - PROJECT:
+            - Ref: Project
+            ACCOUNT_ID:
+            - Ref: AWS::AccountId
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      LifecycleConfiguration:
+        Rules:
+          - Id: Global
+            Status: Enabled
+            AbortIncompleteMultipartUpload:
+              DaysAfterInitiation: 3
+            NoncurrentVersionExpirationInDays: 90
+      VersioningConfiguration:
+        Status: Enabled
+      Tags:
+        - Key: ManagedBy
+          Value: Cloudformation
+
+  TFStateLockTable:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      TableName:
+        Fn::Sub:
+          - "tfstate-locks"
+          - PROJECT:
+            - Ref: Project
+      KeySchema:
+        - AttributeName: LockID
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: LockID
+          AttributeType: S
+      ProvisionedThroughput:
+        WriteCapacityUnits: 2
+        ReadCapacityUnits: 2
+      Tags:
+        - Key: Managed_by
+          Value: Cloudformation
+
+Outputs:
+  TFStateBucketDomainName:
+    Description: Domain name of S3 bucket for tfstate files
+    Value:
+      Fn::GetAtt:
+        - TFStateS3Bucket
+        - DomainName
+  TFStateLockTableArn:
+    Description: Terraform tfstate lock table
+    Value:
+      Fn::GetAtt:
+        - TFStateLockTable
+        - Arn
