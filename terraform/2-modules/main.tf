@@ -1,44 +1,71 @@
 locals {
-  project = "devops-iac-report-${var.environment}"
+  project = "devops-iac-report"
+  app     = "terraform-modules"
+  owner   = "andrei.romanov"
+  env     = "dev"
+  prefix  = "${local.project}-${local.app}-${local.env}"
+
+  region        = "eu-central-1"
+  cidr_block    = "10.27.226.0/23"
+  instance_type = "t3.micro"
+  route53_ttl   = "1000"
+
   tags = {
-    Owner       = "andrei.romanov"
     Project     = local.project
-    Environment = var.environment
-    ManagedBy   = "terraform"
+    Environment = local.env
+    App         = local.app
+    Owner       = local.owner
+    Managed_by  = "Terraform"
   }
 }
-
 
 module "vpc" {
   source = "./modules/aws-vpc"
 
-  name     = local.project
-  vpc_cidr = var.vpc_cidr
-  tags     = local.tags
+  name     = local.prefix
+  vpc_cidr = local.cidr_block
+  subnets = {
+    "${local.prefix}-${local.region}a" : {
+      availability_zone = "${local.region}a"
+      cidr_block        = cidrsubnet(local.cidr_block, 1, 0)
+    }
+    "${local.prefix}-${local.region}b" : {
+      availability_zone = "${local.region}b"
+      cidr_block        = cidrsubnet(local.cidr_block, 1, 1)
+    }
+  }
+  create_private_dns_zone = true
+  dns_zone_name           = "${local.env}.${local.app}.${local.project}.local"
+
+  tags = local.tags
 }
 
-module "route53_zone" {
-  source = "./modules/aws-route53-zone"
+module "ec2-az1" {
+  count  = 2
+  source = "./modules/aws-ec2-instance"
 
-  for_each = var.route53_zones
+  name          = "server-${local.region}a-${count.index + 1}"
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = local.instance_type
+  subnet_id     = module.vpc.subnets["${local.prefix}-${local.region}a"].id
+  tags          = local.tags
 
-  name    = each.key
-  vpc_id  = each.value.type == "private" ? module.vpc.vpc.id : ""
-  comment = "${local.project} record"
-  tags    = local.tags
-
-  depends_on = [module.vpc]
+  create_dns_records = true
+  route53_ttl        = local.route53_ttl
+  route53_zone_id    = module.vpc.dns_zone[0].id
 }
 
-module "route53_record" {
-  source = "./modules/aws-route53-record"
+module "ec2-az2" {
+  count  = 2
+  source = "./modules/aws-ec2-instance"
 
-  for_each = var.dns_records
+  name          = "server-${local.region}b-${count.index + 1}"
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = local.instance_type
+  subnet_id     = module.vpc.subnets["${local.prefix}-${local.region}b"].id
+  tags          = local.tags
 
-  name            = each.key
-  records         = [each.value.ip_address]
-  route53_zone_id = module.route53_zone[each.value.route53_zone].zone.id
-  tags            = local.tags
-
-  depends_on = [module.route53_zone]
+  create_dns_records = true
+  route53_ttl        = local.route53_ttl
+  route53_zone_id    = module.vpc.dns_zone[0].id
 }

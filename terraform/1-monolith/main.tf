@@ -30,7 +30,7 @@ resource "aws_vpc" "private" {
 
 resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.private.id
-  cidr_block        = local.cidr_block
+  cidr_block        = aws_vpc.private.cidr_block
   availability_zone = "${local.region}a"
 
   tags = merge(local.tags, {

@@ -1,5 +1,7 @@
 # This code shows an example of monolith Terraform architecture pattern
 
+Deploys EC2 instance into newly created VPC
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
