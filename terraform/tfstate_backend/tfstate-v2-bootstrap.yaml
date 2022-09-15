@@ -1,12 +1,12 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
 
-Description: "Terraform S3 backend config"
+Description: "devops-iac-report s3 backend config"
 
 Parameters:
   Project:
     Type: String
-    Default: devops-iac
+    Default: devops-iac-report
 
 Resources:
   TFStateS3Bucket:
@@ -15,11 +15,11 @@ Resources:
     Properties:
       BucketName:
         Fn::Sub:
-          - "tfstate-${PROJECT}-${ACCOUNT_ID}"
+          - "tfstate-${PROJECT}"
           - PROJECT:
-              Ref: Project
+            - Ref: Project
             ACCOUNT_ID:
-              Ref: AWS::AccountId
+            - Ref: AWS::AccountId
       BucketEncryption:
         ServerSideEncryptionConfiguration:
           - ServerSideEncryptionByDefault:
@@ -42,9 +42,9 @@ Resources:
     Properties:
       TableName:
         Fn::Sub:
-          - "tfstate-locks-${PROJECT}"
+          - "tfstate-locks"
           - PROJECT:
-              Ref: Project
+            - Ref: Project
       KeySchema:
         - AttributeName: LockID
           KeyType: HASH
@@ -55,7 +55,7 @@ Resources:
         WriteCapacityUnits: 2
         ReadCapacityUnits: 2
       Tags:
-        - Key: ManagedBy
+        - Key: Managed_by
           Value: Cloudformation
 
 Outputs:
