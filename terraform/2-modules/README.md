@@ -1,4 +1,8 @@
-# Terraform infrastructure example
+# Terraform infrastructure with modules example
+
+This code shows an example of monolith Terraform architecture that using separate modules as a building blocks.
+
+This pattern allows us to make reusable infrastructure that pretty simple to scale up, as showed for ec2 module.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
