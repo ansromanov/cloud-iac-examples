@@ -1,4 +1,6 @@
-# This code shows an example of monolith Terraform architecture pattern
+# Monolith Terraform infrastructure example
+
+This code shows an example of monolith Terraform architecture pattern
 
 Deploys EC2 instance into newly created VPC
 
