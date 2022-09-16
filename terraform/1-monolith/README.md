@@ -1,8 +1,15 @@
 # Monolith Terraform infrastructure example
 
-This code shows an example of monolith Terraform architecture pattern
+This code shows an example of monolith Terraform architecture pattern.
 
-Deploys EC2 instance into newly created VPC
+Deploys EC2 instance into newly created VPC.
+
+Things to consider:
+- easily to start and deploy, good for prototyping
+- lot of code duplication in case of adding similar components
+- state quickly grows, that lead to slow Terraform operations execution
+- long state locks
+- large footprint for unpredicted mistakes
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -41,3 +48,4 @@ No inputs.
 
 No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+``

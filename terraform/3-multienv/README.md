@@ -1,12 +1,15 @@
-# Terraform infrastructure with modules example
+# Terraform multi-environment infrastructure
 
 This code shows an example of separated Terraform stacks that using previosly created modules as a building blocks.
 
 This pattern allows us to make reusable infrastructure that pretty simple to scale up, as showed for ec2 module.
-Also we using separate backend to manage different environments
+Also we using separate backend to manage different environments.
+
+Deploys several EC2 instances in two AZs into newly created VPC.
 
 Things to consider:
 - this pattern heavily relies on CI/CD orchestration
+- keeping modules in separate repository allows to manage different versions for each environment
 - difficult to manage environment-specific resources
 
 How to init:

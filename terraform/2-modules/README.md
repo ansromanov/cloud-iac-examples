@@ -4,6 +4,12 @@ This code shows an example of monolith Terraform architecture that using separat
 
 This pattern allows us to make reusable infrastructure that pretty simple to scale up, as showed for ec2 module.
 
+Deploys several EC2 instances in two AZs into newly created VPC.
+
+Things to consider:
+- easily to start and deploy, good for prototyping
+- same drawbacks as for monolith repository
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
