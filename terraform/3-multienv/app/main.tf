@@ -19,7 +19,7 @@ locals {
 
 module "ec2-az1" {
   count  = 2
-  source = "../../2-modules/modules/aws-ec2-instance"
+  source = "../../modules/aws-ec2-instance"
 
   name          = "server-${var.region}a-${count.index + 1}"
   ami           = data.aws_ami.ubuntu.id
@@ -34,7 +34,7 @@ module "ec2-az1" {
 
 module "ec2-az2" {
   count         = 2
-  source        = "../../2-modules/modules/aws-ec2-instance"
+  source        = "../../modules/aws-ec2-instance"
   name          = "server-${var.region}b-${count.index + 1}"
   ami           = data.aws_ami.ubuntu.id
   instance_type = var.instance_type

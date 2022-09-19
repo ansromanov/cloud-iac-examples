@@ -20,9 +20,9 @@ locals {
 
 module "ec2-az1" {
   count  = 2
-  source = "../../../../../2-modules/modules/aws-ec2-instance"
+  source = "../../../../../modules/aws-ec2-instance"
 
-  name          = "server-${local.region}a-${count.index + 1}"
+  name          = "${local.app}-${local.env}-server-${local.region}a-${count.index + 1}"
   ami           = data.aws_ami.ubuntu.id
   instance_type = local.instance_type
   subnet_id     = data.terraform_remote_state.vpc.outputs.vpc.subnets["${local.module_vpc_prefix}-${local.region}a"].id
@@ -35,9 +35,9 @@ module "ec2-az1" {
 
 module "ec2-az2" {
   count  = 2
-  source = "../../../../../2-modules/modules/aws-ec2-instance"
+  source = "../../../../../modules/aws-ec2-instance"
 
-  name          = "server-${local.region}b-${count.index + 1}"
+  name          = "${local.app}-${local.env}-server-${local.region}b-${count.index + 1}"
   ami           = data.aws_ami.ubuntu.id
   instance_type = local.instance_type
   subnet_id     = data.terraform_remote_state.vpc.outputs.vpc.subnets["${local.module_vpc_prefix}-${local.region}b"].id
