@@ -17,7 +17,7 @@ locals {
 }
 
 module "vpc" {
-  source = "../../../../../2-modules/modules/aws-vpc"
+  source = "../../../../../modules/aws-vpc"
 
   name     = local.prefix
   vpc_cidr = local.cidr_block

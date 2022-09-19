@@ -18,4 +18,4 @@ apply: init
 	@terraform apply
 
 destroy: init
-	@terraform delete
+	@terraform destroy

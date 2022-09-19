@@ -1,1 +1,1 @@
-# Terragrunt infrastructure example
+# Terragrunt live infrastructure example

@@ -18,8 +18,8 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ec2-az1"></a> [ec2-az1](#module\_ec2-az1) | ../../../../../2-modules/modules/aws-ec2-instance | n/a |
-| <a name="module_ec2-az2"></a> [ec2-az2](#module\_ec2-az2) | ../../../../../2-modules/modules/aws-ec2-instance | n/a |
+| <a name="module_ec2-az1"></a> [ec2-az1](#module\_ec2-az1) | ../../../../../modules/aws-ec2-instance | n/a |
+| <a name="module_ec2-az2"></a> [ec2-az2](#module\_ec2-az2) | ../../../../../modules/aws-ec2-instance | n/a |
 
 ## Resources
 

@@ -20,7 +20,7 @@ locals {
 }
 
 module "vpc" {
-  source = "./modules/aws-vpc"
+  source = "../modules/aws-vpc"
 
   name     = local.prefix
   vpc_cidr = local.cidr_block
@@ -42,7 +42,7 @@ module "vpc" {
 
 module "ec2-az1" {
   count  = 2
-  source = "./modules/aws-ec2-instance"
+  source = "../modules/aws-ec2-instance"
 
   name          = "server-${local.region}a-${count.index + 1}"
   ami           = data.aws_ami.ubuntu.id
@@ -57,7 +57,7 @@ module "ec2-az1" {
 
 module "ec2-az2" {
   count  = 2
-  source = "./modules/aws-ec2-instance"
+  source = "../modules/aws-ec2-instance"
 
   name          = "server-${local.region}b-${count.index + 1}"
   ami           = data.aws_ami.ubuntu.id

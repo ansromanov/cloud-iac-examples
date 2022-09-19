@@ -15,7 +15,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | ../../2-modules/modules/aws-vpc | n/a |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | ../../modules/aws-vpc | n/a |
 
 ## Resources
 
