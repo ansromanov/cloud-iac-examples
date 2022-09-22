@@ -1,3 +1,5 @@
+.vscode
+.idea
 ### Terraform ###
 # Local .terraform directories
 **/.terraform/*
@@ -42,3 +44,25 @@ terraform.rc
 ### Terraspace ###
 .terraspace-cache
 **/terragrunt_rendered.json
+*.gem
+*.rbc
+.env*
+terraspace/.bundle
+terraspace/.config
+terraspace/.yardoc
+terraspace/_yardoc
+terraspace/coverage
+terraspace/doc/
+terraspace/Gemfile.lock
+terraspace/InstalledFiles
+terraspace/lib/bundler/man
+terraspace/log
+terraspace/output
+terraspace/pkg
+terraspace/rdoc
+terraspace/spec/fixtures/project/output
+terraspace/spec/reports
+terraspace/test/tmp
+terraspace/test/version_tmp
+terraspace/tmp
+terraspace/vendor/modules
