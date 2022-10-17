@@ -1,0 +1,12 @@
+version: 3
+automerge: true
+parallel_plan: true
+parallel_apply: true
+projects:
+- name: terraform-test
+  dir: terraform/2-modules
+  workspace: default
+  terraform_version: v1.2.8
+  autoplan:
+    when_modified: ["*.tf", "../modules/**/*.tf"]
+    enabled: true

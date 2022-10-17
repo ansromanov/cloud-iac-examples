@@ -8,7 +8,7 @@ locals {
   region        = "eu-central-1"
   cidr_block    = "10.27.226.0/23"
   instance_type = "t3.micro"
-  route53_ttl   = "1000"
+  route53_ttl   = "1200"
 
   tags = {
     Project     = local.project
